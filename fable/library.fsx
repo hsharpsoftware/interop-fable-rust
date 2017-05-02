@@ -19,3 +19,8 @@ let fableFunc() =
     System.DateTime.Now |> Util.save "current-time"
     2017
     
+let fableFuncS() = 
+    console.log( "Fable code invoked again" )
+    System.DateTime.Now |> Util.save "current-time"
+    "Hello World!"
+
