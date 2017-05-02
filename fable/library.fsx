@@ -15,25 +15,18 @@ module Util =
         
 open Fable.Import.Browser        
 
-type Tree =
-    | Leaf of int
-    | Branch of Tree[]
-    member this.Sum() =
-        match this with
-        | Leaf i -> i
-        | Branch trees ->
-            trees |> Seq.map (fun x -> x.Sum()) |> Seq.sum
+type Person = {
+    name: String;
+    age: int;
+    phones: string list;
+}
 
-let tree =
-    Branch [|Leaf 1; Leaf 2; Branch [|Leaf 3; Leaf 4|]|]
-
-let fableFunc() = 
-    console.log( "Fable code invoked again" )
+let fableFunc(i:int) = 
+    console.log( sprintf "Fable code invoked again with %A" i )
     System.DateTime.Now |> Util.save "current-time"
     2017
     
 let fableFuncS() = 
     console.log( "Fable code invoked again" )
     System.DateTime.Now |> Util.save "current-time"
-    toJson tree
-
+    toJson { name="John Smith"; age=29; phones=[ "555 123 456"; "123 456 789" ] }
