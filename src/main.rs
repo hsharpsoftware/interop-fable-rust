@@ -29,6 +29,7 @@ mod ffi {
 }
 
 extern crate serde;
+#[macro_use]
 extern crate serde_json;
 
 #[macro_use]
@@ -49,10 +50,10 @@ fn typed_example(data : &str) -> Person {
 
 fn main() {
     println!("Rust code in main() started...");
-    println!("Fable returns {}", eval(&format!("FableLib.fableFunc({})", 1)));
     let result = eval_s("FableLib.fableFuncS()");
     println!("Fable also returns {}", result);    
     let person = typed_example(&result);
     println!("which is {:?} named {}",person, person.name);
+    println!("Fable returns {}", eval(&format!("FableLib.fableFunc({})", json!(person).to_string())));
     println!("... and we are done!");
 }
