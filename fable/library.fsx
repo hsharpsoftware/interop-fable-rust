@@ -14,20 +14,8 @@ module Util =
         Browser.localStorage.setItem(key, JS.JSON.stringify data)
         
 open Fable.Import.Browser        
-
-type Person = {
-    name: String;
-    age: int;
-    phones: string list;
-}
-
-let fableFunc(person:Person) = 
-    console.log("Fable code invoked again")
-    console.log(person)
-    System.DateTime.Now |> Util.save "current-time"
-    person.age
-    
-let fableFuncS() = 
+let fableFunc() = 
     console.log( "Fable code invoked again" )
     System.DateTime.Now |> Util.save "current-time"
-    toJson { name="John Smith"; age=29; phones=[ "555 123 456"; "123 456 789" ] }
+    2017
+    
