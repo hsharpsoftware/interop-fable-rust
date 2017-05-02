@@ -25,7 +25,7 @@ var cfg = {
         loader: "babel-loader"
       }
     ]
-  }  
+  }    
 };
 
 module.exports = cfg;

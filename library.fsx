@@ -16,7 +16,12 @@ module Util =
         Browser.localStorage.setItem(key, JS.JSON.stringify data)
         
 open Fable.Import.Browser        
+//[<Emit("Module.cwrap('_hello_world', 'number', [])();")>]
+[<Emit("_hello_world()")>]
+let rustFunc() : int = jsNative
 let fableFunc() = 
     console.log( "Fable code invoked" )
-    42
-    
+    let result = rustFunc()
+    console.log( sprintf "Calling Rust back with %A" result )
+    console.log( "... and done!" )
+    result    

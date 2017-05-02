@@ -3,6 +3,8 @@ extern {
     pub fn emscripten_asm_const(s: *const c_char);
 }
 
+extern crate lib;
+
 fn main() {
     println!("Code started...");
     let code : &'static [u8] = b"FableLib.fableFunc();\0";
