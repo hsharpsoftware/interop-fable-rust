@@ -21,10 +21,11 @@ type Person = {
     phones: string list;
 }
 
-let fableFunc(i:int) = 
-    console.log( sprintf "Fable code invoked again with %A" i )
+let fableFunc(person:Person) = 
+    console.log("Fable code invoked again")
+    console.log(person)
     System.DateTime.Now |> Util.save "current-time"
-    2017
+    person.age
     
 let fableFuncS() = 
     console.log( "Fable code invoked again" )
