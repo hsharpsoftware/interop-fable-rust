@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "author": "David Podhola",
   "keywords": [
-    "cogos"
+    "interop", "rust", "fable"
   ],
   "homepage": "https://github.com/hsharpsoftware/interop-fable-rust",
   "engines": {
