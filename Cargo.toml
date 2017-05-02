@@ -1,0 +1,13 @@
+[package]
+
+name = "interop-fable-rust"
+version = "0.1.0"
+license = "MIT"
+description = "TodoMVC example ported to Rust."
+authors = ["David Podhola <david.podhola@hsharp.software>"]
+
+[[bin]]
+name = "interop-fable-rust"
+
+[dependencies]
+webplatform = "0.4.0"

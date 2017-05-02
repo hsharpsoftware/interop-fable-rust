@@ -1,5 +1,5 @@
 call npm i
-call fable library.fsx
+call fable fable\library.fsx
 call webpack
-rustc --target asmjs-unknown-emscripten main.rs
-copy main.js public
+cargo build --target=asmjs-unknown-emscripten
+copy .\target\asmjs-unknown-emscripten\debug\interop-fable-rust.js public
