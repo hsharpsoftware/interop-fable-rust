@@ -27,9 +27,27 @@ mod ffi {
         pub fn emscripten_run_script_string(x: *const c_char) -> *const c_char;
     }
 }
+
+struct Tree {
+    title: String,
+    completed: bool,
+}
+
+extern crate serde_json;
+
+use serde_json::{Value, Error};
+
+fn untyped_example(data : &str) -> Value {
+    // Parse the string of data into serde_json::Value.
+    let v: Value = serde_json::from_str(data).unwrap();
+    v
+}
+
 fn main() {
     println!("Rust code in main() started...");
     println!("Fable returns {}", eval("FableLib.fableFunc()"));
-    println!("Fable also returns {}", eval_s("FableLib.fableFuncS()"));    
+    let result = eval_s("FableLib.fableFuncS()");
+    println!("Fable also returns {}", result);    
+    println!("which is {}",untyped_example(&result));
     println!("... and we are done!");
 }
