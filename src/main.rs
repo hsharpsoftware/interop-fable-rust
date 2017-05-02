@@ -28,26 +28,31 @@ mod ffi {
     }
 }
 
-struct Tree {
-    title: String,
-    completed: bool,
-}
-
+extern crate serde;
 extern crate serde_json;
 
-use serde_json::{Value, Error};
+#[macro_use]
+extern crate serde_derive;
 
-fn untyped_example(data : &str) -> Value {
-    // Parse the string of data into serde_json::Value.
-    let v: Value = serde_json::from_str(data).unwrap();
+#[derive(Serialize, Deserialize)]
+#[derive(Debug)]
+struct Person {
+    name: String,
+    age: u8,
+    phones: Vec<String>,
+}
+
+fn typed_example(data : &str) -> Person {
+    let v: Person = serde_json::from_str(data).unwrap();
     v
 }
 
 fn main() {
     println!("Rust code in main() started...");
-    println!("Fable returns {}", eval("FableLib.fableFunc()"));
+    println!("Fable returns {}", eval(&format!("FableLib.fableFunc({})", 1)));
     let result = eval_s("FableLib.fableFuncS()");
     println!("Fable also returns {}", result);    
-    println!("which is {}",untyped_example(&result));
+    let person = typed_example(&result);
+    println!("which is {:?} named {}",person, person.name);
     println!("... and we are done!");
 }
