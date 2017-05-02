@@ -2,3 +2,5 @@ node_modules/
 library.js
 main.js
 public/bundle.js**
+target/
+public/interop-fable-rust.js
