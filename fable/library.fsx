@@ -1,6 +1,4 @@
-#r "node_modules/fable-core/Fable.Core.dll"
-#load "node_modules/fable-import-react/Fable.Import.React.fs"
-#load "node_modules/fable-import-react/Fable.Helpers.React.fs"
+#r "../node_modules/fable-core/Fable.Core.dll"
 
 open System
 open Fable.Core
@@ -17,6 +15,7 @@ module Util =
         
 open Fable.Import.Browser        
 let fableFunc() = 
-    console.log( "Fable code invoked" )
-    42
+    console.log( "Fable code invoked again" )
+    System.DateTime.Now |> Util.save "current-time"
+    2017
     

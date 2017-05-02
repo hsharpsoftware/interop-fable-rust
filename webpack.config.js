@@ -3,7 +3,7 @@ var webpack = require("webpack");
 
 var cfg = {
   devtool: "source-map",
-  entry: "./library.js",
+  entry: "./fable/library.js",
   output: {
     path: path.join(__dirname, "public"),
     filename: "bundle.js",
