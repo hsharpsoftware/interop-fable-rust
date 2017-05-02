@@ -1,0 +1,4 @@
+node_modules/
+library.js
+main.js
+public/bundle.js**
