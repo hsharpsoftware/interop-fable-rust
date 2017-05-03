@@ -33,7 +33,7 @@ let fableFunc(person:Person) =
     System.DateTime.Now |> Util.save "current-time"
     person.age
     
-let fableFuncS() = 
+let fableFuncS() : Person = 
     console.log( "Fable code invoked again" )
     System.DateTime.Now |> Util.save "current-time"
     { name="John Smith"; age=29; phones=[ "555 123 456"; "123 456 789" ] }
