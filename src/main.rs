@@ -43,6 +43,11 @@ struct Person {
     phones: Vec<String>,
 }
 
+fn render_ui() -> Option<String> {
+    Some(eval_s("FableLib.Impl.render()"))
+}
+
+
 fn load_person() -> Option<String> {
     Some(eval_s("FableLib.Impl.loadPerson()"))
 }
@@ -58,6 +63,7 @@ fn get_sent_person_age( person : Person ) -> u8 {
 
 fn main() {
     println!("Rust code in main() started...");
+    render_ui();
     println!("Loading person from Fable...");
     let person =  load_person().map( |p| parse_person(&p) ).unwrap();
     println!("loaded {:?}; the person'name is {}",person, person.name);
