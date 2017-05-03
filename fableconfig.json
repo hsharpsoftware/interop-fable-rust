@@ -5,13 +5,14 @@
   "projFile": "fable/library.fsx",
   "outDir": "temp",
   "scripts": {
-    "postbuild": "webpack"
+      "prebuild": "npm install",
+      "postbuild": "webpack"
   },
   "targets": {
-    "watch": {
-      "scripts": {
-          "postbuild-once": "node node_modules/webpack/bin/webpack --watch"
+      "watch": {
+          "scripts": {
+              "postbuild-once": "node node_modules/webpack-dev-server/bin/webpack-dev-server --colors --hot"
+          }
       }
-    }
   }
 }
