@@ -2,7 +2,7 @@
   "module" : "es2015",
   "ecma" : "es2015",
   "sourceMaps": true,
-  "projFile": "fable/library.fsx",
+  "projFile": "fable/library.fsproj",
   "outDir": "temp",
   "scripts": {
       "prebuild": "npm install",
