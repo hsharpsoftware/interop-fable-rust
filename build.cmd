@@ -1,4 +1,4 @@
-call npm i
+rem call npm i
 call fable fable\library.fsx
 call webpack
 cargo build --target=asmjs-unknown-emscripten

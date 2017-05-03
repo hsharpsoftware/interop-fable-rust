@@ -20,6 +20,12 @@ type Person = {
     age: int;
     phones: string list;
 }
+    with 
+        override this.ToString() =
+            toJson this    
+
+        member this.toString() =
+            toJson this    
 
 let fableFunc(person:Person) = 
     console.log("Fable code invoked again")
@@ -30,4 +36,4 @@ let fableFunc(person:Person) =
 let fableFuncS() = 
     console.log( "Fable code invoked again" )
     System.DateTime.Now |> Util.save "current-time"
-    toJson { name="John Smith"; age=29; phones=[ "555 123 456"; "123 456 789" ] }
+    { name="John Smith"; age=29; phones=[ "555 123 456"; "123 456 789" ] }
