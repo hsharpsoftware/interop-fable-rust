@@ -27,13 +27,11 @@ type Person = {
         member this.toString() =
             toJson this    
 
-let fableFunc(person:Person) = 
-    console.log("Fable code invoked again")
+let age(person:Person) = 
+    console.log("age function called")
     console.log(person)
-    System.DateTime.Now |> Util.save "current-time"
     person.age
     
-let fableFuncS() : Person = 
-    console.log( "Fable code invoked again" )
-    System.DateTime.Now |> Util.save "current-time"
+let loadPerson() : Person = 
+    console.log( "loadPerson function called" )
     { name="John Smith"; age=29; phones=[ "555 123 456"; "123 456 789" ] }

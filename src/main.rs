@@ -44,7 +44,7 @@ struct Person {
 }
 
 fn load_person() -> Option<String> {
-    Some(eval_s("FableLib.fableFuncS()"))
+    Some(eval_s("FableLib.loadPerson()"))
 }
 
 fn parse_person(data : &str) -> Person {
@@ -53,7 +53,7 @@ fn parse_person(data : &str) -> Person {
 }
 
 fn get_sent_person_age( person : Person ) -> u8 {
-    eval(&format!("FableLib.fableFunc({})", json!(person).to_string())) as u8
+    eval(&format!("FableLib.age({})", json!(person).to_string())) as u8
 }
 
 fn main() {
