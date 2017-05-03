@@ -4,6 +4,7 @@ open System
 open Fable.Core
 open Fable.Core.JsInterop
 open Fable.Import
+open Types
 
 module Util =
     let load<'T> key =
@@ -14,23 +15,7 @@ module Util =
         Browser.localStorage.setItem(key, JS.JSON.stringify data)
         
 module Impl = 
-
     open Fable.Import.Browser        
-
-    let render() = UI.render()
-
-    type Person = {
-        name: String;
-        age: int;
-        phones: string list;
-    }
-        with 
-            override this.ToString() =
-                toJson this    
-
-            member this.toString() =
-                toJson this    
-
     let age(person:Person) = 
         console.log("age function called")
         console.log(person)
@@ -38,6 +23,6 @@ module Impl =
         
     let loadPerson() : Person = 
         console.log( "loadPerson function called" )
-        { name="John Smith"; age=29; phones=[ "555 123 456"; "123 456 789" ] }
-
+        { name="Jack Sparrow"; age=29; phones=[ "555 123 456"; "123 456 789" ] }
         
+    let render(person:Person) = UI.render(person)

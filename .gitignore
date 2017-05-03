@@ -7,3 +7,4 @@ public/interop-fable-rust.js
 temp
 bin/
 **/obj/Debug/
+**/.vs/

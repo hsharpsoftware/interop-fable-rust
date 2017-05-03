@@ -55,6 +55,7 @@
       <Reference Include="../node_modules/fable-react/Fable.React.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="types.fs" />
     <Compile Include="ui.fs" />
     <Compile Include="library.fs" />
   </ItemGroup>
