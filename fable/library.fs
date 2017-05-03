@@ -17,6 +17,8 @@ module Impl =
 
     open Fable.Import.Browser        
 
+    let render() = UI.render()
+
     type Person = {
         name: String;
         age: int;
@@ -37,3 +39,5 @@ module Impl =
     let loadPerson() : Person = 
         console.log( "loadPerson function called" )
         { name="John Smith"; age=29; phones=[ "555 123 456"; "123 456 789" ] }
+
+        
