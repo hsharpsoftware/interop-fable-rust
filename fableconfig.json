@@ -1,0 +1,17 @@
+{
+  "module" : "es2015",
+  "ecma" : "es2015",
+  "sourceMaps": true,
+  "projFile": "fable/library.fsx",
+  "outDir": "temp",
+  "scripts": {
+    "postbuild": "webpack"
+  },
+  "targets": {
+    "watch": {
+      "scripts": {
+          "postbuild-once": "node node_modules/webpack/bin/webpack --watch"
+      }
+    }
+  }
+}
