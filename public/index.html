@@ -54,6 +54,7 @@
           if (text) Module.printErr('[post-exception status] ' + text);
         };
       };
+      Module['onRuntimeInitialized'] = function() { _app(); };
     </script>
 
     <section class="app"></section>

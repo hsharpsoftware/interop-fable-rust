@@ -1,4 +1,8 @@
 #![feature(libc)]
+#![feature(link_args)]
+#[link_args = "-s EXPORTED_FUNCTIONS=['_app']"]
+extern {}
+
 extern crate libc;
 
 use std::ffi::CString;
@@ -61,7 +65,8 @@ fn get_sent_person_age( person : &Person ) -> u8 {
     eval(&format!("FableLib.Impl.age({})", json!(person).to_string())) as u8
 }
 
-fn main() {
+#[no_mangle]
+pub fn app() {
     println!("Rust code in main() started...");
     println!("Loading person from Fable...");
     let person =  load_person().map( |p| parse_person(&p) ).unwrap();
@@ -69,4 +74,7 @@ fn main() {
     println!("Fable reports the age to be {}", get_sent_person_age(&person) );
     render_ui( &person );
     println!("... and we are done!");
+}
+
+fn main() {
 }
