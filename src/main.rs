@@ -1,6 +1,6 @@
 #![feature(libc)]
 #![feature(link_args)]
-#[link_args = "-s EXPORTED_FUNCTIONS=['_app']"]
+#[link_args = "-s EXPORTED_FUNCTIONS=['_app','_callback']"]
 extern {}
 
 extern crate libc;
@@ -63,6 +63,11 @@ fn parse_person(data : &str) -> Person {
 
 fn get_sent_person_age( person : &Person ) -> u8 {
     eval(&format!("FableLib.Impl.age({})", json!(person).to_string())) as u8
+}
+
+#[no_mangle]
+pub fn callback( data : &str  ) -> () {
+    println!( "Called back from Fable with {:?}", data );
 }
 
 #[no_mangle]
