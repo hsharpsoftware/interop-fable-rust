@@ -21,8 +21,11 @@ module Impl =
         console.log(person)
         person.age
         
-    let loadPerson() : Person = 
+    [<Emit("Module.ccall('callback', 'void', ['string'], [$0]);")>]
+    let callback(s:string) : unit = jsNative
+
+    let loadPerson() : unit = 
         console.log( "loadPerson function called" )
-        { name="Jack Sparrow"; age=29; phones=[ "555 123 456"; "123 456 789" ] }
+        { name="Jack Sparrow"; age=29; phones=[ "555 123 456"; "123 456 789" ] } |> toJson |> callback
         
     let render(person:Person) = UI.render(person)

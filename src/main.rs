@@ -54,8 +54,8 @@ fn render_ui(person:&Person) -> Option<String> {
 }
 
 
-fn load_person() -> Option<String> {
-    Some(eval_s("FableLib.Impl.loadPerson()"))
+fn load_person() -> () {
+    eval_s("FableLib.Impl.loadPerson()");
 }
 
 fn parse_person(data : &str) -> Person {
@@ -79,17 +79,19 @@ fn convert_from_js( data : *mut c_char ) -> String {
 
 #[no_mangle]
 pub fn callback( data : *mut c_char ) -> () {
-    println!( "Called back from Fable with {:?}", convert_from_js(data) );
+    let received = convert_from_js(data);
+    println!( "Called back from Fable with {:?}", received );
+    let person = Some(received).map( |p| parse_person(&p) ).unwrap();
+    println!("loaded {:?}; the person'name is {}",person, person.name);
+    println!("Fable reports the age to be {}", get_sent_person_age(&person) );
+    render_ui( &person );
 }
 
 #[no_mangle]
 pub fn app() {
     println!("Rust code in main() started...");
     println!("Loading person from Fable...");
-    let person =  load_person().map( |p| parse_person(&p) ).unwrap();
-    println!("loaded {:?}; the person'name is {}",person, person.name);
-    println!("Fable reports the age to be {}", get_sent_person_age(&person) );
-    render_ui( &person );
+    load_person();
     println!("... and we are done!");
 }
 
