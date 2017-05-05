@@ -20,7 +20,7 @@ module Types =
                 toJson this
 
     type IState = 
-        Initial = 0 | Loading = 1 | Loaded = 2
+        Initial = 0 | Loading = 1 | Loaded = 2 | Changed = 3
 
     type [<Pojo>] Props = {  
         state : IState

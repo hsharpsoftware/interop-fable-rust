@@ -13,6 +13,7 @@ use std::mem;
 const  STATE_INITIAL: i32 = 0;
 const  STATE_LOADING: i32 = 1;
 const  STATE_LOADED: i32 = 2;
+const  STATE_CHANGED: i32 = 3;
 
 /// Safe rust wrapper for emscripten_run_script_int (basically, JS eval()).
 pub fn eval(x: &str) -> i32 {
@@ -82,8 +83,12 @@ pub fn process_state( data : *mut c_char ) -> *mut c_char {
     println!( "Got {:?}", state );
     let result = 
         if state.state == STATE_INITIAL { 
-            println!("Loading person from Fable...");    
+            println!("Loading state from Fable...");    
             State { state : STATE_LOADING, .. state } 
+        } else if state.state == STATE_CHANGED {
+            println!("Processing changed state from Fable..."); 
+            let person = state.person.unwrap();
+            State { state : STATE_LOADED, person : Some(Person { name: (person.name + " (Changed!)").to_string(), .. person }), .. state } 
         }
         else { state };
     println!( "Will return {:?}", result );

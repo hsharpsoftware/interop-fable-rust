@@ -22,18 +22,24 @@ module UI =
         inherit React.Component<Props, State>(props)
         do base.setInitState({state=props.state;person=None})
 
-        member this.componentDidMount () =
-            let processedState : State = processState(this.state |> toJson) |> ofJson
-            printfn "New state %A" processedState
+        member this.setStateAndProcess( state ) = 
+            printfn "Got state %A" state
+            let processedState : State = processState(state |> toJson) |> ofJson
+            printfn "New processed state %A" processedState
             this.setState( processedState )
 
             match processedState.state with
             | IState.Loading -> 
                 promise {
                     let! person = Library.Impl.loadPerson()
-                    this.setState( { state=IState.Loaded; person=Some(person) } )
+                    let loadedState = { state=IState.Loaded; person=Some(person) }
+                    printfn "Will set loaded state %A" loadedState
+                    this.setState( loadedState )
                 } |> run
             | _ -> ()
+
+        member this.componentDidMount () =
+            this.setStateAndProcess( this.state )
 
         member this.render () =
             printfn "Will render state %A" this.state
@@ -43,13 +49,23 @@ module UI =
             ]
 
             let personEdit = 
+                let changeName (event:React.FormEvent) = 
+                    this.setStateAndProcess( 
+                        { this.state with 
+                            person=Some({ this.state.person.Value with name=event.target?value.ToString() });
+                            state = IState.Changed
+                        } 
+                    )
                 if this.state.state = IState.Loaded then
+                    printfn "Person Name %A" this.state.person.Value.name
+
                     [
                         R.label [] [ R.str "Name" ]
                         R.input [
                             Type "text"
-                            DefaultValue (U2.Case1 this.state.person.Value.name)
                             Name "name"
+                            OnChange changeName
+                            Value (U2.Case1 this.state.person.Value.name)
                         ] []
                     ]
                 else []
