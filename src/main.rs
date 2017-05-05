@@ -67,14 +67,19 @@ fn get_sent_person_age( person : &Person ) -> u8 {
     eval(&format!("FableLib.Impl.age({})", json!(person).to_string())) as u8
 }
 
-#[no_mangle]
-pub fn callback( data : *mut c_char ) -> () {
+fn convert_from_js( data : *mut c_char ) -> String {
     unsafe {
         let s = CString::from_raw(data);
         let s = s.into_string().unwrap();    
-        println!( "Called back from Fable with {:?}", s );
+        let result = s.clone();
         mem::forget(s);
-    }
+        result
+    }    
+}
+
+#[no_mangle]
+pub fn callback( data : *mut c_char ) -> () {
+    println!( "Called back from Fable with {:?}", convert_from_js(data) );
 }
 
 #[no_mangle]
