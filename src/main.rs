@@ -7,6 +7,8 @@ extern crate libc;
 
 use std::ffi::CString;
 use std::ffi::CStr;
+use libc::c_char;
+use std::mem;
 
 /// Safe rust wrapper for emscripten_run_script_int (basically, JS eval()).
 pub fn eval(x: &str) -> i32 {
@@ -66,8 +68,13 @@ fn get_sent_person_age( person : &Person ) -> u8 {
 }
 
 #[no_mangle]
-pub fn callback( data : &str  ) -> () {
-    println!( "Called back from Fable with {:?}", data );
+pub fn callback( data : *mut c_char ) -> () {
+    unsafe {
+        let s = CString::from_raw(data);
+        let s = s.into_string().unwrap();    
+        println!( "Called back from Fable with {:?}", s );
+        mem::forget(s);
+    }
 }
 
 #[no_mangle]
