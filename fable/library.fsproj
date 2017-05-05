@@ -56,8 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="types.fs" />
-    <Compile Include="ui.fs" />
     <Compile Include="library.fs" />
+    <Compile Include="ui.fs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Choose>

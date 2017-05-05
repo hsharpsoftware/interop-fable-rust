@@ -5,6 +5,7 @@ open Fable.Core
 open Fable.Core.JsInterop
 open Fable.Import
 open Types
+open Fable.PowerPack
 
 module Util =
     let load<'T> key =
@@ -21,11 +22,8 @@ module Impl =
         console.log(person)
         person.age
         
-    [<Emit("Module.ccall('callback', 'void', ['string'], [$0]);")>]
-    let callback(s:string) : unit = jsNative
-
-    let loadPerson() : unit = 
-        console.log( "loadPerson function called" )
-        { name="Jack Sparrow"; age=29; phones=[ "555 123 456"; "123 456 789" ] } |> toJson |> callback
-        
-    let render(person:Person) = UI.render(person)
+    let loadPerson() = 
+        promise {
+            console.log( "loadPerson function called" )
+            return { name="Jack Sparrow"; age=29; phones=[ "555 123 456"; "123 456 789" ] }
+        }

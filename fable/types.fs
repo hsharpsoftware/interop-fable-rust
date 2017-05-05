@@ -25,20 +25,8 @@ module Types =
     type [<Pojo>] Props = {  
         state : IState
     }
-        with 
-            override this.ToString() =
-                toJson this    
-
-            member this.toString() =
-                toJson this
 
     type [<Pojo>] State = {  
         state : IState
         person : Person Option
     }        
-        with 
-            override this.ToString() =
-                toJson this    
-
-            member this.toString() =
-                toJson this
