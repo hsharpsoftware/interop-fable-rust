@@ -10,6 +10,10 @@ use std::ffi::CStr;
 use libc::c_char;
 use std::mem;
 
+const  STATE_INITIAL: i32 = 0;
+const  STATE_LOADING: i32 = 1;
+const  STATE_LOADED: i32 = 2;
+
 /// Safe rust wrapper for emscripten_run_script_int (basically, JS eval()).
 pub fn eval(x: &str) -> i32 {
     let x = CString::new(x).unwrap();
@@ -98,7 +102,13 @@ pub fn callback( data : *mut c_char ) -> () {
 pub fn process_state( data : *mut c_char ) -> *mut c_char {
     let received = convert_from_js(data);
     println!( "Processing...{:?}", received );
-    data
+    let state : State = serde_json::from_str(&received).unwrap();
+    println!( "Got {:?}", state );
+    let result = 
+        if state.state == STATE_INITIAL { State { state : STATE_LOADING, .. state } }
+        else { state };
+    println!( "Will return {:?}", result );
+    CString::new(json!(result).to_string()).unwrap().into_raw()
 }
 
 #[no_mangle]

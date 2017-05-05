@@ -19,9 +19,11 @@ module UI =
 
         member this.componentDidMount () =
             let processedState : State = processState(this.state |> toJson) |> ofJson
-            this.setState( processedState )
+            printfn "New state %A" processedState
+            this.setState( processedState )            
 
         member this.render () =
+            printfn "Will render state %A" this.state
             let header = [
                 R.h1 [] [ R.str "Welcome to JavaScript Interop between F# (Fable) and Rust (through Emscripten) Demo" ]
                 R.hr [] []
@@ -39,14 +41,17 @@ module UI =
                     ]
                 else []
 
-            let footer = [ 
-                R.str (
-                    match this.state with
-                    | Initial -> "Initial" 
-                    | Loading -> "Loading"
-                    | Loaded -> "Loaded"
-                ) 
-            ]
+            printf "Application state is %A..." this.state.state
+            let actualState = 
+                match this.state.state with
+                | IState.Initial -> "Initial" 
+                | IState.Loading -> "Loading"
+                | IState.Loaded -> "Loaded"        
+                | _ -> "Unknown"    
+
+            printfn "... which is %A" actualState
+
+            let footer = [ R.str ( actualState) ]
 
             let content = [header;personEdit;footer] |> List.concat
             R.div [] content
