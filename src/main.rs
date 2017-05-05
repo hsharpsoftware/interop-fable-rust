@@ -1,6 +1,6 @@
 #![feature(libc)]
 #![feature(link_args)]
-#[link_args = "-s EXPORTED_FUNCTIONS=['_app','_callback']"]
+#[link_args = "-s EXPORTED_FUNCTIONS=['_app','_callback','_process_state']"]
 extern {}
 
 extern crate libc;
@@ -49,6 +49,13 @@ struct Person {
     phones: Vec<String>,
 }
 
+#[derive(Serialize, Deserialize)]
+#[derive(Debug)]
+struct State {
+    state : i32,
+    person : Option<Person>
+}
+
 fn render_ui(person:&Person) -> Option<String> {
     Some(eval_s(&format!("FableLib.Impl.render({})", json!(person).to_string())))
 }
@@ -85,6 +92,13 @@ pub fn callback( data : *mut c_char ) -> () {
     println!("loaded {:?}; the person'name is {}",person, person.name);
     println!("Fable reports the age to be {}", get_sent_person_age(&person) );
     render_ui( &person );
+}
+
+#[no_mangle]
+pub fn process_state( data : *mut c_char ) -> *mut c_char {
+    let received = convert_from_js(data);
+    println!( "Processing...{:?}", received );
+    data
 }
 
 #[no_mangle]
