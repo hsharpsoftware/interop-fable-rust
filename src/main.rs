@@ -64,15 +64,6 @@ fn render_ui() -> String {
     eval_s("FableLib.render()")
 }
 
-fn parse_person(data : &str) -> Person {
-    let v: Person = serde_json::from_str(data).unwrap();
-    v
-}
-
-fn get_sent_person_age( person : &Person ) -> u8 {
-    eval(&format!("FableLib.Impl.age({})", json!(person).to_string())) as u8
-}
-
 fn convert_from_js( data : *mut c_char ) -> String {
     unsafe {
         let s = CString::from_raw(data);

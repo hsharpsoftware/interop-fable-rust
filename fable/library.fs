@@ -6,15 +6,7 @@ open Fable.Core.JsInterop
 open Fable.Import
 open Types
 open Fable.PowerPack
-
-module Util =
-    let load<'T> key =
-        Browser.localStorage.getItem(key) |> unbox
-        |> Option.map (JS.JSON.parse >> unbox<'T>)
-
-    let save key (data: 'T) =
-        Browser.localStorage.setItem(key, JS.JSON.stringify data)
-        
+       
 module Impl = 
     open Fable.Import.Browser        
     let age(person:Person) = 
